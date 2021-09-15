@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        //from https://www.w3schools.com/html/html_tables.asp 
+        <!--from https://www.w3schools.com/html/html_tables.asp -->
         <style>
             table {
               font-family: arial, sans-serif;
@@ -20,10 +20,11 @@
             }*/
             </style>
         <title>
+            About Me
+        </title>
             <h2>
                 Anti-Dirt
             </h2>
-        </title>
     </head>
     <body>
         <p>
@@ -64,6 +65,40 @@
         <p>
             3 delicacies above are Asian foods, where Pho is from Vietnam, Hotpot is from China and Samosas is from southern part of India while burrito is from Mexico. Pho is basically rice noodles with beef/chicken broth topped with fresh Thai basil and bean sprouts. This delicacy gives a strong taste of essence of bones from cow/chicken with a refreshing kick from the greens. Hotpot, in the other hand, is a delicacy which broth is being cooked in a big pot and ingredients are placed into the broth for a slight cooking in the simmering broth. It is a big feast that can be a good opportunity for gathering! Last but not least, amosas is an Indian snack that can fit one in your mouth per samosas. It consist of lentils and potatoes and meat. Burrito is a wrap that contains meat, beans, rice and some greens which makes it a very healthy and convenient food.
         </p>
+        <hr>
+        <h2>
+            Combinatorics
+        </h2>
+        <p>
+            Combinatorial mathematics is the field of mathematics concerned with problems of selection, arrangement, and operation within a finite or discrete system. Included is the closely related area of combinatorial geometry. One of the basic problems of combinatorics is to determine the number of possible configurations (e.g., graphs, designs, arrays) of a given type. Even when the rules specifying the configuration are relatively simple, enumeration may sometimes present formidable difficulties. The mathematician may have to be content with finding an approximate answer or at least a good lower and upper bound. For more info, click <a href="https://www.britannica.com/science/combinatorics">here</a>.
+            <br>
+            The code below shows the way to find the number of ways to place K bishops on an N×N chessboard so that no two bishops attack each other. For more details, click <a href=“https://cp-algorithms.com/combinatorics/bishops-on-chessboard.html”>here</a>. 
+        </p>
+        <pre>
+            int squares (int i) {
+                if (i & 1)
+                    return i / 4 * 2 + 1;
+                else
+                    return (i - 1) / 4 * 2 + 2;
+            }
+            int bishop_placements(int N, int K){
+                if (K > 2 * N - 1)
+                    return 0;
+
+                vector<vector<int>> D(N * 2, vector<int>(K + 1));
+                for (int i = 0; i < N * 2; ++i)
+                    D[i][0] = 1;
+                D[1][1] = 1;
+                for (int i = 2; i < N * 2; ++i)
+                    for (int j = 1; j <= K; ++j)
+                        D[i][j] = D[i-2][j] + D[i-2][j-1] * (squares(i) - j + 1);
+
+                int ans = 0;
+                for (int i = 0; i <= K; ++i)
+                    ans += D[N*2-1][i] * D[N*2-2][K-i];
+                return ans;
+            }
+        </pre>
     </body>
     <br>
     <foot>
